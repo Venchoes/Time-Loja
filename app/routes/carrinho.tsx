@@ -27,13 +27,13 @@ export default function Carrinho() {
             >
               <div className="flex-1 min-w-0">
                 <p className="font-medium text-purple-600 truncate">
-                  {item.product.name} ({item.product.year})
+                  {item.product.brand} {item.product.modelName} ({item.product.year})
                 </p>
                 <p className="text-sm text-gray-900 mt-1">
-                  {item.product.brand} • {item.product.fuel} • {item.product.transmission}
+                  Tipo: {item.product.type}
                 </p>
                 <p className="mt-1 text-sm text-gray-900">
-                  {formatBRL(item.product.price)} cada
+                  {formatBRL(item.product.value)} cada
                 </p>
               </div>
               <div className="flex items-center gap-3 sm:gap-4">

@@ -108,7 +108,7 @@ Este repositório contém o frontend do Time de Loja (vendas de carros). Ele faz
 - Vitrine de carros com listagem
 - Página de detalhes do produto
 - Carrinho e cálculo de total
-- Integração futura com pontos (mocks via MSW já preparados)
+- Consumo de API backend para produtos (`/api/products`)
 - Estrutura para consumo de API de autenticação (a ser integrada com o Time de Cadastro)
 
 ### Estrutura principal
@@ -116,40 +116,56 @@ Este repositório contém o frontend do Time de Loja (vendas de carros). Ele faz
 ```
 app/
 	components/        # Componentes reutilizáveis (Navbar, ProductCard, etc.)
-	data/              # Dados mock locais (products)
-	mocks/             # Handlers MSW para simular APIs (/api/*)
+	services/          # Serviços para consumo de API (products)
 	store/             # Estado global (Zustand) - carrinho
 	routes/            # Páginas (home, vitrine, produto.$id, carrinho)
-	types/             # Tipos TypeScript (CarProduct)
+	types/             # Tipos TypeScript (CarProduct, VeiculoType)
 ```
 
 ### Rotas atuais
 
 | Rota | Descrição |
 |------|-----------|
-| `/` | Vitrine simplificada de carros |
-| `/vitrine` | Catálogo completo (mesmo grid) |
+| `/` | Vitrine simplificada (primeiros 4 carros) |
+| `/vitrine` | Catálogo completo |
 | `/produto/:id` | Detalhe de um carro específico |
 | `/carrinho` | Itens adicionados e total |
 
-### Estado e Mocks
+### Estado e Backend
 
 - Carrinho gerenciado com Zustand (`app/store/cart.ts`).
-- Mock Service Worker inicializa em modo DEV para rotas `/api/products`, `/api/products/:id`, `/api/engajamento/pontos`, `/api/orders`.
+- Produtos buscados via `fetch` do backend (`app/services/products.ts`).
+- URL base da API configurável via env var `API_BASE_URL` (padrão: `http://localhost:8080/api`).
+
+### Modelo de Produto
+
+```typescript
+type CarProduct = {
+  id: string;
+  brand: string;
+  modelName: string;
+  type: VeiculoType; // 'carro' | 'suv' | 'pickup' | 'esportivo' | 'classico' | 'van' | 'hatch' | 'sedan'
+  value: number; // valor em centavos BRL
+  status: 'disponivel' | 'vendido';
+  year: number;
+  description?: string;
+};
+```
 
 ### Próximos Passos (Sugestões)
 
 1. Integrar autenticação (consumir endpoints do Time de Cadastro) e proteger rotas de compra para usuários cliente.
-2. Consumir pontos reais do serviço de Engajamento (usar mock atual como contrato).
-3. Adicionar filtros e busca na vitrine (marca, ano, faixa de preço).
+2. Consumir pontos reais do serviço de Engajamento.
+3. Adicionar filtros e busca na vitrine (marca, ano, faixa de preço, tipo).
 4. Implementar paginação ou carregamento incremental.
 5. Preparar internacionalização básica (pt-BR / en-US) se necessário.
 6. Adicionar testes (React Testing Library + Vitest) para componentes principais.
+7. Adicionar imagens de produtos vindas do backend.
 
 ### Scripts úteis
 
 ```bash
-npm run dev       # ambiente desenvolvimento + MSW
+npm run dev       # ambiente desenvolvimento
 npm run build     # build de produção
 npm run start     # serve build (SSR) usando react-router-serve
 npm run typecheck # checagem de tipos
@@ -157,7 +173,7 @@ npm run typecheck # checagem de tipos
 
 ### Deploy
 
-Publicação recomendada no Vercel (frontend). Ao integrar com backend, apontar variáveis de ambiente para os domínios dos microserviços (ex.: `VITE_API_PRODUCTS`, `VITE_API_POINTS`).
+Publicação recomendada no Vercel (frontend). Ao integrar com backend, configurar variável de ambiente `API_BASE_URL` para apontar para o domínio dos microserviços de produtos.
 
 ---
 

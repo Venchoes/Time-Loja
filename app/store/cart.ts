@@ -22,7 +22,7 @@ const creator: StateCreator<CartState> = (set, get) => ({
     set((state: CartState) => {
       const existing = state.items.find((i: CartItem) => i.product.id === product.id);
       if (existing) {
-        toast.success(`+${qty} ${product.name} adicionado ao carrinho!`, {
+        toast.success(`+${qty} ${product.brand} ${product.modelName} adicionado ao carrinho!`, {
           icon: '🚗',
         });
         return {
@@ -33,7 +33,7 @@ const creator: StateCreator<CartState> = (set, get) => ({
           ),
         };
       }
-      toast.success(`${product.name} adicionado ao carrinho!`, {
+      toast.success(`${product.brand} ${product.modelName} adicionado ao carrinho!`, {
         icon: '✅',
       });
       return { items: [...state.items, { product, quantity: qty }] };
@@ -42,7 +42,7 @@ const creator: StateCreator<CartState> = (set, get) => ({
   remove: (id: string) => {
     const item = get().items.find((i: CartItem) => i.product.id === id);
     if (item) {
-      toast.success(`${item.product.name} removido do carrinho`, {
+      toast.success(`${item.product.brand} ${item.product.modelName} removido do carrinho`, {
         icon: '🗑️',
       });
     }
@@ -71,7 +71,7 @@ const creator: StateCreator<CartState> = (set, get) => ({
     }));
   },
   totalCents: () =>
-    get().items.reduce((acc: number, item: CartItem) => acc + item.product.price * item.quantity, 0),
+    get().items.reduce((acc: number, item: CartItem) => acc + item.product.value * item.quantity, 0),
 });
 
 export const useCartStore = create<CartState>(creator);

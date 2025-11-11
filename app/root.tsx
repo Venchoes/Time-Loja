@@ -10,7 +10,6 @@ import {
 import type { Route } from "./+types/root";
 import "./app.css";
 import Navbar from "~/components/Navbar";
-import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 
 export const links: Route.LinksFunction = () => [
@@ -45,12 +44,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  useEffect(() => {
-    if (import.meta.env.DEV && typeof window !== "undefined") {
-      import("~/mocks/browser").then(({ startMockWorker }) => startMockWorker());
-    }
-  }, []);
-
   return (
     <div>
       <Toaster 
