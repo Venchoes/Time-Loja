@@ -14,8 +14,8 @@ export default function Vitrine() {
       <section className="max-w-6xl">
         <div className="flex items-end justify-between">
           <div>
-            <h1 className="text-3xl font-semibold text-purple-600">Catálogo completo</h1>
-            <p className="mt-2 text-sm text-gray-900">
+            <h1 className="text-2xl sm:text-3xl font-semibold text-purple-600">Catálogo completo</h1>
+            <p className="mt-2 text-sm sm:text-base text-gray-900">
               Explore todas as opções disponíveis. Filtros e busca avançada em breve.
             </p>
           </div>

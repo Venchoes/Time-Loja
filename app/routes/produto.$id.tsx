@@ -27,7 +27,7 @@ export default function Produto() {
 
   return (
     <MainStyle>
-      <div className="grid gap-10 lg:grid-cols-2">
+      <div className="grid gap-6 lg:gap-10 lg:grid-cols-2">
         <div className="aspect-[4/3] overflow-hidden rounded-xl border shadow-sm">
           <img
             src={product.imageUrl}
@@ -35,26 +35,26 @@ export default function Produto() {
             className="h-full w-full object-cover"
           />
         </div>
-        <div>
-          <h1 className="text-3xl font-semibold text-purple-600 leading-tight">
+        <div className="space-y-4">
+          <h1 className="text-2xl sm:text-3xl font-semibold text-purple-600 leading-tight">
             {product.name}
           </h1>
-          <p className="mt-3 text-sm text-gray-900">
+          <p className="text-sm text-gray-900">
             {product.brand} • Ano {product.year} • {product.km.toLocaleString("pt-BR")} km
           </p>
-          <p className="mt-1 text-sm text-gray-900">
+          <p className="text-sm text-gray-900">
             {product.fuel} • {product.transmission} • Cor {product.color}
           </p>
-          <p className="mt-6 text-4xl font-bold text-purple-600">
+          <p className="text-3xl sm:text-4xl font-bold text-purple-600">
             {formatBRL(product.price)}
           </p>
           {product.description && (
-            <p className="mt-6 text-gray-900 leading-relaxed max-w-prose">
+            <p className="text-gray-900 leading-relaxed max-w-prose">
               {product.description}
             </p>
           )}
           {product.stats && (
-            <div className="mt-8">
+            <div className="pt-4">
               <h2 className="text-lg font-semibold text-purple-600 mb-4">
                 Estatísticas de Desempenho
               </h2>
@@ -66,10 +66,10 @@ export default function Produto() {
               </div>
             </div>
           )}
-          <div className="mt-8 flex gap-4">
+          <div className="pt-4 flex flex-col sm:flex-row gap-3">
             <button
               onClick={() => add(product, 1)}
-              className="rounded-lg bg-gray-900 px-6 py-3 text-sm font-medium text-white shadow hover:bg-black"
+              className="w-full sm:w-auto rounded-lg bg-gray-900 px-6 py-3 text-sm font-medium text-white shadow hover:bg-black transition-colors"
             >
               Adicionar ao carrinho
             </button>

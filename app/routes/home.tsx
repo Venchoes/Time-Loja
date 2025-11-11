@@ -15,10 +15,10 @@ export default function Home() {
     <MainStyle>
       <section className="max-w-6xl">
         <header>
-          <h1 className="text-3xl font-semibold text-purple-600">
+          <h1 className="text-2xl sm:text-3xl font-semibold text-purple-600">
             Encontre seu próximo carro
           </h1>
-          <p className="mt-2 text-sm text-gray-900">
+          <p className="mt-2 text-sm sm:text-base text-gray-900">
             Ofertas selecionadas, quilometragem real e procedência garantida.
             Compare modelos, veja detalhes e adicione ao carrinho para finalizar quando quiser.
           </p>
