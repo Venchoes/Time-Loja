@@ -1,4 +1,4 @@
-import { useCartStore } from "~/store/cart";
+import { useCartStore, getProductKey } from "~/store/cart";
 import { formatBRL } from "~/types/product";
 import MainStyle from "~/components/MainStyle";
 
@@ -20,9 +20,11 @@ export default function Carrinho() {
         <p className="mt-6 text-gray-900">Nenhum veículo adicionado. Explore a vitrine e escolha seu próximo carro.</p>
       ) : (
         <div className="mt-6 sm:mt-8 space-y-4 sm:space-y-5">
-          {items.map((item) => (
+          {items.map((item) => {
+            const key = getProductKey(item.product);
+            return (
             <div
-              key={item.product.id}
+              key={key}
               className="flex flex-col sm:flex-row sm:items-center gap-4 rounded-xl border p-4 sm:p-5 bg-white/50"
             >
               <div className="flex-1 min-w-0">
@@ -43,19 +45,19 @@ export default function Carrinho() {
                     type="number"
                     min={1}
                     value={item.quantity}
-                    onChange={(e) => setQty(item.product.id, Number(e.target.value))}
+                    onChange={(e) => setQty(key, Number(e.target.value))}
                     className="w-16 sm:w-20 rounded-lg border border-gray-300 px-2 py-1 text-center shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
                   />
                 </div>
                 <button
-                  onClick={() => remove(item.product.id)}
+                  onClick={() => remove(key)}
                   className="text-sm text-red-600 hover:text-red-700 whitespace-nowrap font-medium"
                 >
                   Remover
                 </button>
               </div>
             </div>
-          ))}
+          )})}
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-t pt-4 sm:pt-5">
             <p className="text-xl sm:text-2xl font-semibold text-purple-600">
               Total: {formatBRL(total)}
